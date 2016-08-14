@@ -1,0 +1,137 @@
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`vertical`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+delete from `persepolis.servicio.vertical`.vertical
+where idvertical = 600;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`vertical`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+INSERT INTO `persepolis.servicio.vertical`.`vertical` (`idvertical`) VALUES (600);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`servicio`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (50, 'Gestión', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (51, 'Agua', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (52, 'Alcantarillado', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (53, 'Energía Eléctrica', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (54, 'Gas', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (55, 'Servicios Funerarios', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (56, 'Telefonía', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (57, 'Servicios Públicos por Demanda', 600);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` (`idservicio`, `servicio`, `vertical_idvertical`) VALUES (62, 'Aseo', 600);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`s_especializado`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+INSERT INTO `persepolis.servicio.vertical`.`s_especializado` (`ids_especializado`, `especializado`, `servicio_idservicio`) VALUES (23, 'Gestión de usuarios servicios públicos', 50);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`funcionalidad`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` (`idfuncionalidad`, `s_especializado_ids_especializado`, `funcionalidad`) VALUES (296, 23, 'Catastro de usuarios servicios públicos');
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` (`idfuncionalidad`, `s_especializado_ids_especializado`, `funcionalidad`) VALUES (297, 23, 'Georeferencia de redes de servicios');
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`solucion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+INSERT INTO `persepolis.servicio.vertical`.`solucion` (`idsolucion`, `funcionalidad_idfuncionalidad`, `solucion`, `descripcion`) VALUES (17, 296, 'SOLX19 SCUU', 'Sistema de catastro único de usuarios de servicios públicos');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` (`idsolucion`, `funcionalidad_idfuncionalidad`, `solucion`, `descripcion`) VALUES (18, 297, 'SOLX20 SIGRS', 'Sistema de información georeferencial de redes de servicios');
+
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from requerimiento_caracteristica
+where solucion_idsolucion in (
+	select idsolucion from `persepolis.servicio.vertical`.solucion
+	where funcionalidad_idfuncionalidad in (
+		select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+		where s_especializado_ids_especializado in (
+			select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+			where servicio_idservicio in (
+				select idservicio from `persepolis.servicio.vertical`.servicio
+				where vertical_idvertical = 600
+				)
+		)
+	)
+)
+and idrequerimiento_caracteristica > 0;
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`requerimiento_caracteristica`
+-- -----------------------------------------------------
+START TRANSACTION;
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) VALUES (41, 17, 'Funcionalidad', 'SOL19 SCUU');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) VALUES (42, 18, 'Proceso', 'Proceso de levantamiento de redes de servicios');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) VALUES (43, 18, 'Actividad', 'Aplicación de captura de localidades de redes de servicios');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`implementacion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `plazo`, `valor_aproximado`) VALUES (1, 41, 'Public Census', 14, 560000000);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `plazo`, `valor_aproximado`) VALUES (2, 42, 'Bonita BPMS', 8, 350000000);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `plazo`, `valor_aproximado`) VALUES (3, 43, 'Geo SPUB', 3, 140000000);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`proveedor`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) VALUES (1, 'NEC', 1, 'Bogota DC', '55555555', 'John Appleseed', 'ja@nec.com');
+INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) VALUES (2, 'Bonita Soft', 2, 'Bogota DC', '65555555', 'John Appleseed', 'ja@bonita.com');
+INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) VALUES (3, 'Redapp Soft', 3, 'Bogota DC', '75555555', 'John Appleseed', 'ja@redapp.com');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`financiero`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`financiero` (`idfinanciero`, `utilidad`, `implementacion_idimplementacion`) VALUES (1, .25, 1);
+
+COMMIT;
