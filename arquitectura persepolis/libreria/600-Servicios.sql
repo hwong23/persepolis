@@ -6,6 +6,8 @@ USE `persepolis.servicio.vertical`;
 delete from `persepolis.servicio.vertical`.vertical
 where idvertical = 600;
 
+COMMIT;
+
 
 -- -----------------------------------------------------
 -- Data for table `persepolis.servicio.vertical`.`vertical`
@@ -88,6 +90,9 @@ where solucion_idsolucion in (
 )
 and idrequerimiento_caracteristica > 0;
 
+delete from componente
+where idcomponente > 0;
+
 COMMIT;
 
 
@@ -108,9 +113,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `plazo`, `valor_aproximado`) VALUES (1, 41, 'Public Census', 14, 560000000);
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `plazo`, `valor_aproximado`) VALUES (2, 42, 'Bonita BPMS', 8, 350000000);
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `plazo`, `valor_aproximado`) VALUES (3, 43, 'Geo SPUB', 3, 140000000);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`) VALUES (1, 41, 'Public Census');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`) VALUES (2, 42, 'Bonita BPMS');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`) VALUES (3, 43, 'Geo SPUB');
 
 COMMIT;
 
@@ -128,10 +133,31 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `persepolis.proyecto.solucion`.`financiero`
+-- Data for table `persepolis.proyecto.solucion`.`componente`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-INSERT INTO `persepolis.proyecto.solucion`.`financiero` (`idfinanciero`, `utilidad`, `implementacion_idimplementacion`) VALUES (1, .25, 1);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (1, 'ESB', 'Integración', 450000000.34, 6);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (3, 'Servidor Aplicaciones', 'Software Base', 150000000.34, 3);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (4, 'RDBMS', 'Software Base', 170000000.34, 3);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (5, 'Dispositivo móvil', 'Dispositivo', 10000000.34, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (6, 'Servidor de Aplicaciones', 'Software Base', 450000000.34, 5);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (7, 'Canal Internet', 'Comunicación', 450000000.34, 5);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`implementacion_has_componente`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (1, 1);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (2, 3);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (2, 4);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (3, 3);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (3, 4);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (3, 5);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) VALUES (3, 7);
 
 COMMIT;
