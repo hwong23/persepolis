@@ -132,6 +132,7 @@ INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedo
 COMMIT;
 
 
+/*
 -- -----------------------------------------------------
 -- Data for table `persepolis.proyecto.solucion`.`componente`
 -- -----------------------------------------------------
@@ -145,6 +146,7 @@ INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `compon
 INSERT INTO `persepolis.proyecto.solucion`.`componente` (`idcomponente`, `componente`, `tipo_tecnologia`, `costo_aproximado`, `plazo_aproximado`) VALUES (7, 'Canal Internet', 'Comunicación', 450000000.34, 5);
 
 COMMIT;
+*/
 
 
 -- -----------------------------------------------------
