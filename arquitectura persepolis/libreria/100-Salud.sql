@@ -123,14 +123,141 @@ INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` (`idfuncionalidad`, `
 COMMIT;
 
 
+
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from componente 
+where idcomponente in (
+	select componente_idcomponente from implementacion_has_componente
+	where implementacion_idimplementacion in (
+		select idimplementacion from implementacion
+		where idimplementacion in (
+			select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
+			where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+				select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+				where solucion_idsolucion in (
+					select idsolucion from `persepolis.servicio.vertical`.solucion
+					where funcionalidad_idfuncionalidad in (
+						select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+						where s_especializado_ids_especializado in (
+							select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+							where servicio_idservicio in (
+								select idservicio from `persepolis.servicio.vertical`.servicio
+								where vertical_idvertical = 100
+								)
+						)
+					)
+				)
+			)
+		)
+	)
+)
+and idcomponente > 0;
+
+COMMIT;
+
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from implementacion
+where idimplementacion in (
+	select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
+	where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+		select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+		where solucion_idsolucion in (
+			select idsolucion from `persepolis.servicio.vertical`.solucion
+			where funcionalidad_idfuncionalidad in (
+				select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+				where s_especializado_ids_especializado in (
+					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+					where servicio_idservicio in (
+						select idservicio from `persepolis.servicio.vertical`.servicio
+						where vertical_idvertical = 100
+						)
+				)
+			)
+		)
+	)
+)
+and idimplementacion > 0;
+
+COMMIT;
+
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from requerimiento_caracteristica
+where solucion_idsolucion in (
+	select idsolucion from `persepolis.servicio.vertical`.solucion
+	where funcionalidad_idfuncionalidad in (
+		select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+		where s_especializado_ids_especializado in (
+			select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+			where servicio_idservicio in (
+				select idservicio from `persepolis.servicio.vertical`.servicio
+				where vertical_idvertical = 100
+				)
+		)
+	)
+)
+and idrequerimiento_caracteristica > 0;
+
+
+COMMIT;
+
+
+/*
 -- -----------------------------------------------------
--- Data for table `persepolis.servicio.vertical`.`solucion`
+-- Data for table `persepolis.proyecto.solucion`.`requerimiento_caracteristica`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `persepolis.servicio.vertical`;
-/*
-INSERT INTO `persepolis.servicio.vertical`.`solucion` (`idsolucion`, `funcionalidad_idfuncionalidad`, `solucion`, `descripcion`) VALUES (14, 202, 'SOLX07 REHR', 'Registro de Enfermedades Huérfanas y Raras');
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) 
+VALUES (44, 19, 'Funcionalidad', 'SOLX21 PRES');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`implementacion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` 
+VALUES (4, 'NEC', 'https://www.lucidchart.com/publicSegments/view/cd825ff5-7fcc-45e6-9865-db36a1aa741c/image.jpeg');
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` (`requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion_idimplementacion`) 
+VALUES (44, 4);
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`proveedor`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) 
+VALUES (5, 'NEC', 4, 'Bogota DC', '55555555', 'John Appleseed', 'ja@nec.com');
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`implementacion_has_componente`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` (`implementacion_idimplementacion`, `componente_idcomponente`) 
+VALUES (4, 1);
+
 
 COMMIT;
 */
-

@@ -15,12 +15,4 @@ INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (5, 'Dispositivo 
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (6, 'Servidor de Aplicaciones', 'Software Base', 450000000.34, 5);
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (7, 'Canal Internet', 'Comunicación', 150000000.34, 5);
 
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (8, 'C0-01. Función o App Movil', 'Aplicación', 15000000, 1);
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (9, 'C0-02. App Web Pequeña', 'Aplicación', 40000000, 2);
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (10, 'C0-03. Punto Recepción datos', 'Aplicación', 15000000, 1);
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (11, 'C0-04. Punto de Integración con SECAD', 'Aplicación', 15000000, 2);
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (12, 'C0-05. Punto Recepción datos. ', 'Aplicación', 15000000, 1);
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (13, 'C0-06. Punto de Integración PERSEPOLIS', 'Aplicación', 15000000, 2);
-INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (14, 'C0-07. Punto Recepción datos', 'Aplicación', 15000000, 2);
-
 COMMIT;

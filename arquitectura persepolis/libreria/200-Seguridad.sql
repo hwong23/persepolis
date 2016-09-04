@@ -58,16 +58,78 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
-INSERT INTO `persepolis.servicio.vertical`.`solucion` (`idsolucion`, `funcionalidad_idfuncionalidad`, `solucion`, `descripcion`) 
-VALUES (20, 298, 'SOLX100 AAE', 'Alertas y Alarmas ');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (20, 298, 'SOLX200 AAE', 'Alertas y Alarmas');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (21, 298, 'SOLX201 COM', 'Comisarias');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (22, 298, 'SOLX202 JVE', 'Juntas Vecinales');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (23, 298, 'SOLX203 OBC', 'Observatorio de Contravenciones');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (24, 298, 'SOLX204 RAP', 'Red de Apoyo a Vigilantes');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (25, 298, 'SOLX205 CTE', 'Control Tenencia de Armas');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (26, 298, 'SOLX206 INF', 'Informes Especiales');
 
 COMMIT;
-
 
 
 -- -----------------------------------------------------
 -- Data for table `persepolis.proyecto.solucion`
 -- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from componente 
+where idcomponente in (
+	select componente_idcomponente from implementacion_has_componente
+	where implementacion_idimplementacion in (
+		select idimplementacion from implementacion
+		where idimplementacion in (
+			select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
+			where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+				select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+				where solucion_idsolucion in (
+					select idsolucion from `persepolis.servicio.vertical`.solucion
+					where funcionalidad_idfuncionalidad in (
+						select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+						where s_especializado_ids_especializado in (
+							select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+							where servicio_idservicio in (
+								select idservicio from `persepolis.servicio.vertical`.servicio
+								where vertical_idvertical = 200
+								)
+						)
+					)
+				)
+			)
+		)
+	)
+)
+and idcomponente > 0;
+
+COMMIT;
+
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from implementacion
+where idimplementacion in (
+	select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
+	where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+		select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+		where solucion_idsolucion in (
+			select idsolucion from `persepolis.servicio.vertical`.solucion
+			where funcionalidad_idfuncionalidad in (
+				select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+				where s_especializado_ids_especializado in (
+					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+					where servicio_idservicio in (
+						select idservicio from `persepolis.servicio.vertical`.servicio
+						where vertical_idvertical = 200
+						)
+				)
+			)
+		)
+	)
+)
+and idimplementacion > 0;
+
+COMMIT;
+
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 delete from requerimiento_caracteristica
@@ -86,7 +148,6 @@ where solucion_idsolucion in (
 )
 and idrequerimiento_caracteristica > 0;
 
-
 COMMIT;
 
 
@@ -97,9 +158,9 @@ COMMIT;
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) 
-VALUES (45, 20, 'Característica', 'Registro de Alarma');
-INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` 
-VALUES (46, 20, 'Característica', 'Seguimiento de Alarma y Despacho');
+VALUES (45, 20, 'caracteristica', 'registro de alarma');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) 
+VALUES (46, 20, 'caracteristica', 'seguimiento de alarmas');
 
 COMMIT;
 
@@ -109,12 +170,23 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `diagrama`) 
-VALUES (5, 45, 'PRY Alarma Ciudadana', 'https://www.lucidchart.com/publicSegments/view/002cffa6-7044-4d5a-ae3c-ce507816441f/image.jpeg');
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion`
-VALUES (6, 46, 'PRY Alarma Ciudadana', 'https://www.lucidchart.com/publicSegments/view/002cffa6-7044-4d5a-ae3c-ce507816441f/image.jpeg');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `implementacion`, `diagrama`) 
+VALUES (5, 'PRY Alarma ciudadana', 'https://www.lucidchart.com/publicSegments/view/3b8db7e5-16f6-4886-b276-b2dc818535d5/image.jpeg');
 
 COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` (`requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion_idimplementacion`) 
+VALUES (45, 5);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` (`requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion_idimplementacion`) 
+VALUES (46, 5);
+
 
 
 -- -----------------------------------------------------
@@ -123,9 +195,43 @@ COMMIT;
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) 
-VALUES (6, 'OyG', 5, 'Bogota DC', '55555555', 'Boris Uzkategui', 'ja@nec.com');
-INSERT INTO `persepolis.proyecto.solucion`.`proveedor` 
-VALUES (6, 'OyG', 6, 'Bogota DC', '55555555', 'Boris Uzkategui', 'ja@nec.com');
+VALUES (1, 'OyG', 5, 'Bogota DC', '55555555', 'John Appleseed', 'ja@nec.com');
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`componente`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (8, 'C0-01. Función o App Movil', 'Aplicación', 1000000, 1);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (9, 'C0-02. App Web', 'Aplicación', 4000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (10, 'C0-03. Punto Recepción datos', 'Aplicación', 1000000, 1);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (11, 'C0-04. Punto de Integración con SECAD', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (12, 'C0-05. Punto Recepción datos. ', 'Aplicación', 1000000, 1);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (13, 'C0-06. Punto de Integración PERSEPOLIS', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (14, 'C0-07. Punto Recepción datos', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (15, 'C0-08. Punto de Integración <<sistema alarmas>>', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (16, 'C0-09. App. Información de Alarmas', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (17, 'C0-10. App. Informe de Eventos', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (18, 'C0-11. App. Informe Operativo', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (19, 'C0-12. Integración - Servidor de Applicaciones Linux', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (20, 'CO-13. Portal de Alarmas - Servidor de Applicaciones Linux', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (21, 'C0-14. Integración - Servidor de Applicaciones Linux', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (22, 'C0-15. MSSQL - Servidor de Base de Datos ', 'Base de datos', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (23, 'C0-16. Integración - Servidor de Applicaciones  Linux / Windows', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (24, 'C0-17. MSSQL - Servidor de Base de Datos ', 'Base de datos', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (25, 'C0-18. Tablero de Control - Servidor de Applicaciones  RHES / Windows', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (26, 'C0-19. Aplicaciones Personalizadas - Servidor de Applicaciones  RHES / Windows', 'Aplicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (27, 'CO-20. <<Certificado>> SSL', 'Dispositivo', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (28, 'CO-21. <<ADSL>> 20 Mbits', 'Comunicación', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (29, 'CO-22. <<Switch>> Linksys ', 'Dispositivo', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (30, 'CO-23. <<Firewall>> Cisco', 'Dispositivo', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (31, 'CO-24. Balanceador - Servidor de Applicaciones Linux', 'Dispositivo', 1000000, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (32, 'CO-25. <<ADSL>> 20 Mbits', 'Comunicación', 1000000, 2);
 
 COMMIT;
 
@@ -144,9 +250,24 @@ INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUE
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 12);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 13);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 14);
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 3);
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 4);
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 7);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 15);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 16);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 17);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 18);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 19);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 20);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 21);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 22);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 23);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 24);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 25);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 26);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 27);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 28);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 29);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 30);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 31);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (5, 32);
 
 COMMIT;
 

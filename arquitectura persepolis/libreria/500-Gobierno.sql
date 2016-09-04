@@ -68,7 +68,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
-INSERT INTO `persepolis.servicio.vertical`.`solucion` (`idsolucion`, `funcionalidad_idfuncionalidad`, `solucion`, `descripcion`) VALUES (19, 239, 'SOLX21 PRES', 'Presupueto');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` 
+VALUES (19, 239, 'SOLX21 PRES', 'Presupuesto');
 
 COMMIT;
 
@@ -77,6 +78,64 @@ COMMIT;
 -- -----------------------------------------------------
 -- Data for table `persepolis.proyecto.solucion`
 -- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from componente 
+where idcomponente in (
+	select componente_idcomponente from implementacion_has_componente
+	where implementacion_idimplementacion in (
+		select idimplementacion from implementacion
+		where idimplementacion in (
+			select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
+			where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+				select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+				where solucion_idsolucion in (
+					select idsolucion from `persepolis.servicio.vertical`.solucion
+					where funcionalidad_idfuncionalidad in (
+						select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+						where s_especializado_ids_especializado in (
+							select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+							where servicio_idservicio in (
+								select idservicio from `persepolis.servicio.vertical`.servicio
+								where vertical_idvertical = 500
+								)
+						)
+					)
+				)
+			)
+		)
+	)
+)
+and idcomponente > 0;
+
+COMMIT;
+
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+delete from implementacion
+where idimplementacion in (
+	select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
+	where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+		select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+		where solucion_idsolucion in (
+			select idsolucion from `persepolis.servicio.vertical`.solucion
+			where funcionalidad_idfuncionalidad in (
+				select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+				where s_especializado_ids_especializado in (
+					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+					where servicio_idservicio in (
+						select idservicio from `persepolis.servicio.vertical`.servicio
+						where vertical_idvertical = 500
+						)
+				)
+			)
+		)
+	)
+)
+and idimplementacion > 0;
+
+COMMIT;
+
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 delete from requerimiento_caracteristica
@@ -105,7 +164,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) VALUES (44, 19, 'Funcionalidad', 'SOLX21 PRES');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` (`idrequerimiento_caracteristica`, `solucion_idsolucion`, `tipo`, `nombre`) 
+VALUES (44, 19, 'Funcionalidad', 'SOLX21 PRES');
 
 COMMIT;
 
@@ -115,9 +175,21 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-INSERT INTO `persepolis.proyecto.solucion`.`implementacion` (`idimplementacion`, `requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion`, `diagrama`) VALUES (4, 44, 'NEC', 'https://www.lucidchart.com/publicSegments/view/cd825ff5-7fcc-45e6-9865-db36a1aa741c/image.jpeg');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` 
+VALUES (4, 'NEC', 'https://www.lucidchart.com/publicSegments/view/cd825ff5-7fcc-45e6-9865-db36a1aa741c/image.jpeg');
 
 COMMIT;
+
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` (`requerimiento_caracteristica_idrequerimiento_caracteristica`, `implementacion_idimplementacion`) 
+VALUES (44, 4);
+
 
 
 -- -----------------------------------------------------
@@ -125,7 +197,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) VALUES (5, 'NEC', 4, 'Bogota DC', '55555555', 'John Appleseed', 'ja@nec.com');
+INSERT INTO `persepolis.proyecto.solucion`.`proveedor` (`idproveedor`, `proveedor`, `implementacion_idimplementacion`, `direccion`, `telefono`, `contacto`, `correo`) 
+VALUES (5, 'NEC', 4, 'Bogota DC', '55555555', 'John Appleseed', 'ja@nec.com');
 
 COMMIT;
 
