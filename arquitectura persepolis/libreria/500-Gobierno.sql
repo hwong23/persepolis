@@ -1,3 +1,11 @@
+SET @vertical = 500;
+SET @servicio = @vertical;
+SET @especializado = @vertical;
+SET @funcionalidad = @vertical;
+SET @solucion = @vertical;
+SET @caracteristica = @vertical;
+SET @implementacion = @vertical;
+
 
 -- -----------------------------------------------------
 -- Data for table `persepolis.servicio.vertical`.`vertical`
@@ -13,7 +21,7 @@ delete from `persepolis.servicio.vertical`.solucion
 			select ids_especializado from `persepolis.servicio.vertical`.s_especializado
 			where servicio_idservicio in (
 				select idservicio from `persepolis.servicio.vertical`.servicio
-				where vertical_idvertical = 500
+				where vertical_idvertical = @vertical
 			)
 		)
 	)
@@ -25,7 +33,7 @@ COMMIT;
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
 delete from `persepolis.servicio.vertical`.vertical
-where idvertical = 500;
+where idvertical = @vertical;
 
 COMMIT;
 
@@ -130,7 +138,7 @@ where implementacion_idimplementacion in (
 							select ids_especializado from `persepolis.servicio.vertical`.s_especializado
 							where servicio_idservicio in (
 								select idservicio from `persepolis.servicio.vertical`.servicio
-								where vertical_idvertical = 500
+								where vertical_idvertical = @vertical
 							)
 						)
 					)
@@ -163,7 +171,7 @@ where implementacion_idimplementacion in (
 						select ids_especializado from `persepolis.servicio.vertical`.s_especializado
 						where servicio_idservicio in (
 							select idservicio from `persepolis.servicio.vertical`.servicio
-							where vertical_idvertical = 500
+							where vertical_idvertical = @vertical
 							)
 						)
 					)
@@ -194,7 +202,7 @@ where idimplementacion in (
 					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
 					where servicio_idservicio in (
 						select idservicio from `persepolis.servicio.vertical`.servicio
-						where vertical_idvertical = 500
+						where vertical_idvertical = @vertical
 						)
 					)
 				)
@@ -220,7 +228,7 @@ where solucion_idsolucion in (
 					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
 					where servicio_idservicio in (
 						select idservicio from `persepolis.servicio.vertical`.servicio
-						where vertical_idvertical = 500
+						where vertical_idvertical = @vertical
 				)
 			)
 		)
