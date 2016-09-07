@@ -4,6 +4,26 @@
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
+delete from `persepolis.servicio.vertical`.solucion
+	where idsolucion in (
+	select solucion_idsolucion from `persepolis.servicio.vertical`.funcionalidad_has_solucion
+	where funcionalidad_idfuncionalidad in (
+		select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+		where s_especializado_ids_especializado in (
+			select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+			where servicio_idservicio in (
+				select idservicio from `persepolis.servicio.vertical`.servicio
+				where vertical_idvertical = 200
+			)
+		)
+	)
+)
+and idsolucion > 0;
+
+COMMIT;
+
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
 delete from `persepolis.servicio.vertical`.vertical
 where idvertical = 200;
 
@@ -58,15 +78,31 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (20, 298, 'SOLX200 AAE', 'Alertas y Alarmas');
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (21, 298, 'SOLX201 COM', 'Comisarias');
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (22, 298, 'SOLX202 JVE', 'Juntas Vecinales');
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (23, 298, 'SOLX203 OBC', 'Observatorio de Contravenciones');
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (24, 298, 'SOLX204 RAP', 'Red de Apoyo a Vigilantes');
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (25, 298, 'SOLX205 CTE', 'Control Tenencia de Armas');
-INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (26, 298, 'SOLX206 INF', 'Informes Especiales');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (200, 'SOLX200 AAE', 'Alertas y Alarmas');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (201, 'SOLX201 COM', 'Comisarias');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (202, 'SOLX202 JVE', 'Juntas Vecinales');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (203, 'SOLX203 OBC', 'Observatorio de Contravenciones');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (204, 'SOLX204 RAP', 'Red de Apoyo a Vigilantes');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (205, 'SOLX205 CTE', 'Control Tenencia de Armas');
+INSERT INTO `persepolis.servicio.vertical`.`solucion` VALUES (206, 'SOLX206 INF', 'Informes Especiales');
 
 COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `persepolis.servicio.vertical`.`funcionalidad_has_solucion`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `persepolis.servicio.vertical`;
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (298, 200);
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (298, 201);
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (298, 203);
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (298, 204);
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (298, 205);
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (298, 206);
+
+COMMIT;
+
 
 
 -- -----------------------------------------------------
@@ -74,17 +110,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
-delete from componente 
-where idcomponente in (
-	select componente_idcomponente from implementacion_has_componente
-	where implementacion_idimplementacion in (
-		select idimplementacion from implementacion
-		where idimplementacion in (
-			select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
-			where requerimiento_caracteristica_idrequerimiento_caracteristica in (
-				select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
-				where solucion_idsolucion in (
-					select idsolucion from `persepolis.servicio.vertical`.solucion
+delete from `persepolis.proyecto.solucion`.implementacion_has_proveedor
+where implementacion_idimplementacion in (
+	select idimplementacion from `persepolis.proyecto.solucion`.implementacion
+	where idimplementacion in (
+		select implementacion_idimplementacion from `persepolis.proyecto.solucion`.requerimiento_caracteristica_has_implementacion
+		where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+			select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+			where solucion_idsolucion in (
+				select idsolucion from `persepolis.servicio.vertical`.solucion
+				where idsolucion in (
+                	select solucion_idsolucion from `persepolis.servicio.vertical`.funcionalidad_has_solucion
 					where funcionalidad_idfuncionalidad in (
 						select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
 						where s_especializado_ids_especializado in (
@@ -92,7 +128,7 @@ where idcomponente in (
 							where servicio_idservicio in (
 								select idservicio from `persepolis.servicio.vertical`.servicio
 								where vertical_idvertical = 200
-								)
+							)
 						)
 					)
 				)
@@ -100,12 +136,46 @@ where idcomponente in (
 		)
 	)
 )
-and idcomponente > 0;
+and implementacion_idimplementacion > 0;
 
 COMMIT;
 
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
+
+delete from `persepolis.proyecto.solucion`.implementacion_has_componente
+where implementacion_idimplementacion in (
+	select idimplementacion from `persepolis.proyecto.solucion`.implementacion
+	where idimplementacion in (
+		select implementacion_idimplementacion from `persepolis.proyecto.solucion`.requerimiento_caracteristica_has_implementacion
+		where requerimiento_caracteristica_idrequerimiento_caracteristica in (
+			select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
+			where solucion_idsolucion in (
+				select idsolucion from `persepolis.servicio.vertical`.solucion
+				where idsolucion in (
+				select solucion_idsolucion from `persepolis.servicio.vertical`.funcionalidad_has_solucion
+				where funcionalidad_idfuncionalidad in (
+					select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+					where s_especializado_ids_especializado in (
+						select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+						where servicio_idservicio in (
+							select idservicio from `persepolis.servicio.vertical`.servicio
+							where vertical_idvertical = 200
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+)
+and implementacion_idimplementacion > 0;
+
+COMMIT;
+
+START TRANSACTION;
+USE `persepolis.proyecto.solucion`;
+
 delete from implementacion
 where idimplementacion in (
 	select implementacion_idimplementacion from requerimiento_caracteristica_has_implementacion
@@ -113,7 +183,9 @@ where idimplementacion in (
 		select idrequerimiento_caracteristica from `persepolis.proyecto.solucion`.requerimiento_caracteristica
 		where solucion_idsolucion in (
 			select idsolucion from `persepolis.servicio.vertical`.solucion
-			where funcionalidad_idfuncionalidad in (
+			where idsolucion in (
+            select solucion_idsolucion from `persepolis.servicio.vertical`.funcionalidad_has_solucion
+            where funcionalidad_idfuncionalidad in (
 				select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
 				where s_especializado_ids_especializado in (
 					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
@@ -121,7 +193,9 @@ where idimplementacion in (
 						select idservicio from `persepolis.servicio.vertical`.servicio
 						where vertical_idvertical = 200
 						)
+					)
 				)
+
 			)
 		)
 	)
@@ -135,20 +209,24 @@ USE `persepolis.proyecto.solucion`;
 delete from requerimiento_caracteristica
 where solucion_idsolucion in (
 	select idsolucion from `persepolis.servicio.vertical`.solucion
-	where funcionalidad_idfuncionalidad in (
-		select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
-		where s_especializado_ids_especializado in (
-			select ids_especializado from `persepolis.servicio.vertical`.s_especializado
-			where servicio_idservicio in (
-				select idservicio from `persepolis.servicio.vertical`.servicio
-				where vertical_idvertical = 200
+			where idsolucion in (
+            select solucion_idsolucion from `persepolis.servicio.vertical`.funcionalidad_has_solucion
+            where funcionalidad_idfuncionalidad in (
+				select idfuncionalidad from `persepolis.servicio.vertical`.funcionalidad
+				where s_especializado_ids_especializado in (
+					select ids_especializado from `persepolis.servicio.vertical`.s_especializado
+					where servicio_idservicio in (
+						select idservicio from `persepolis.servicio.vertical`.servicio
+						where vertical_idvertical = 200
 				)
+			)
 		)
 	)
 )
 and idrequerimiento_caracteristica > 0;
 
 COMMIT;
+
 
 
 
