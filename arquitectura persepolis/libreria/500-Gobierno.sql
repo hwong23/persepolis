@@ -44,7 +44,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
-INSERT INTO `persepolis.servicio.vertical`.`vertical` (`idvertical`) VALUES (500);
+INSERT INTO `persepolis.servicio.vertical`.`vertical` VALUES (@vertical);
 
 COMMIT;
 
@@ -54,8 +54,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
-INSERT INTO `persepolis.servicio.vertical`.`servicio` VALUES (58, 'Monitoreo Plan de Desarrollo Municipal', 500);
-INSERT INTO `persepolis.servicio.vertical`.`servicio` VALUES (59, 'Gestión Financiera Municipal', 500);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` VALUES (@servicio, 'Monitoreo Plan de Desarrollo Municipal', @vertical);
+INSERT INTO `persepolis.servicio.vertical`.`servicio` VALUES (@servicio+1, 'Gestión Financiera Municipal', @vertical);
 
 COMMIT;
 
@@ -65,9 +65,9 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.servicio.vertical`;
-INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (33, 'Cumplimiento de Metas del PDM', 58);
-INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (34, 'Rendición de Cuentas de la Gestión Municipal', 58);
-INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (35, 'PES del Presupuesto anual municipal', 59);
+INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (33, 'Cumplimiento de Metas del PDM', @servicio);
+INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (34, 'Rendición de Cuentas de la Gestión Municipal', @servicio);
+INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (35, 'PES del Presupuesto anual municipal', @servicio+1);
 
 COMMIT;
 
