@@ -38,6 +38,8 @@ INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (31, 'CO-24. <<Di
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (32, 'CO-25. <<ADSL>> 20 Mbits', 'Comunicación', 1000000, 1) on duplicate key update componente = rtrim (componente);
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (33, 'C0-26. MIAS Servidor de Análisis de Datos', 'Dispositivo', 1000000, 1) on duplicate key update componente = rtrim (componente);
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (34, 'C0-27. Analítica Contravenciones y otros Eventos relacionados', 'Dispositivo', 1000000, 1) on duplicate key update componente = rtrim (componente);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (35, 'C0-54. App. Información de Juntas', 'Aplicación', 1000000, 1) on duplicate key update componente = rtrim (componente);
+INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (36, 'C0-56. Propagador de Mensaje', 'Aplicación', 1000000, 1) on duplicate key update componente = rtrim (componente);
 commit;
 
 

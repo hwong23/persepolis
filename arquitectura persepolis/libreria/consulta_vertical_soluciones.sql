@@ -21,7 +21,7 @@ from `persepolis.servicio.vertical`.servicio ss
     join `persepolis.proyecto.solucion`.requerimiento_caracteristica car on car.solucion_idsolucion = sol.idsolucion
     join `persepolis.proyecto.solucion`.requerimiento_caracteristica_has_implementacion carimpl on requerimiento_caracteristica_idrequerimiento_caracteristica = car.idrequerimiento_caracteristica
     join `persepolis.proyecto.solucion`.implementacion impl on impl.idimplementacion = carimpl.implementacion_idimplementacion
-where ss.vertical_idvertical = 200
+-- where ss.vertical_idvertical = 200
 -- and solucion = "SOLX200 AAE";
-
+;
 

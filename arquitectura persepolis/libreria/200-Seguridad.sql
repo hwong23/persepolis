@@ -66,6 +66,7 @@ USE `persepolis.servicio.vertical`;
 INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (@especializado, 'Alarmas Ciudadanas', @servicio);
 INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (@especializado+1, 'Apoyo a Comisarias', @servicio);
 INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (@especializado+2, 'Juntas Vecinales', @servicio);
+INSERT INTO `persepolis.servicio.vertical`.`s_especializado` VALUES (@especializado+4, 'Red de Vigilancias', @servicio);
 
 COMMIT;
 
@@ -79,6 +80,7 @@ INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` VALUES (@funcionalida
 INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` VALUES (@funcionalidad+1, @especializado+1, 'Apoyo electrónico Comisarias');
 INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` VALUES (@funcionalidad+2, @especializado+2, 'Organización de Juntas Vecinales');
 INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` VALUES (@funcionalidad+3, @especializado, 'Soporte al Observatorio de Contravenciones');
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad` VALUES (@funcionalidad+4, @especializado+4, 'Soporte al Red de Vigilancia');
 
 COMMIT;
 
@@ -111,6 +113,7 @@ INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (
 INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (@funcionalidad+1, @solucion+1);
 INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (@funcionalidad+2, @solucion+2);
 INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (@funcionalidad+3, @solucion+3);
+INSERT INTO `persepolis.servicio.vertical`.`funcionalidad_has_solucion` VALUES (@funcionalidad+4, @solucion+4);
 
 COMMIT;
 
@@ -252,6 +255,15 @@ INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+3, @solucion+1, 'Caracteristica', 'Registro y Asignación del Caso');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+4, @solucion+1, 'Caracteristica', 'Actualización o Cierre del Caso');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+5, @solucion+1, 'Caracteristica', 'Seguimiento del Caso');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+6, @solucion+2, 'Caracteristica', 'Registro del Evento Vecinal');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+7, @solucion+2, 'Caracteristica', 'Actualización del Evento');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+8, @solucion+2, 'Caracteristica', 'Consulta del Evento Vecinal');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+9, @solucion+3, 'Caracteristica', 'Registro de Evento Observado');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+10, @solucion+3, 'Caracteristica', 'Complementa información del Evento');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+11, @solucion+3, 'Caracteristica', 'Persépolis correlaciona Eventos');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+12, @solucion+4, 'Caracteristica', 'Registro del Evento Vigilado');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+13, @solucion+4, 'Caracteristica', 'Actualización del Evento:');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+14, @solucion+4, 'Caracteristica', 'Consulta del Evento Vigilado');
 
 COMMIT;
 
@@ -263,6 +275,10 @@ START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion` VALUES (@implementacion, 'PRY Alarma ciudadana', 'https://www.lucidchart.com/publicSegments/view/3b8db7e5-16f6-4886-b276-b2dc818535d5/image.jpeg');
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion` VALUES (@implementacion+1, 'PRY Comisaria', 'https://www.lucidchart.com/publicSegments/view/3b8db7e5-16f6-4886-b276-b2dc818535d5/image.jpeg');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` VALUES (@implementacion+2, 'PRY Juntas Vecinales', 'https://www.lucidchart.com/publicSegments/view/3b8db7e5-16f6-4886-b276-b2dc818535d5/image.jpeg');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` VALUES (@implementacion+3, 'PRY Observatorio', 'https://www.lucidchart.com/publicSegments/view/3b8db7e5-16f6-4886-b276-b2dc818535d5/image.jpeg');
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion` VALUES (@implementacion+4, 'PRY Vigilancia', 'https://www.lucidchart.com/publicSegments/view/3b8db7e5-16f6-4886-b276-b2dc818535d5/image.jpeg');
+
 COMMIT;
 
 
@@ -278,6 +294,15 @@ INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_imp
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+3, @implementacion+1);
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+4, @implementacion+1);
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+5, @implementacion+1);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+6, @implementacion+2);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+7, @implementacion+2);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+8, @implementacion+2);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+9, @implementacion+3);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+10, @implementacion+3);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+11, @implementacion+3);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+12, @implementacion+4);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+13, @implementacion+4);
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica_has_implementacion` VALUES (@caracteristica+14, @implementacion+4);
 
 COMMIT;
 
@@ -289,6 +314,9 @@ START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_proveedor` VALUES (@implementacion, 2);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_proveedor` VALUES (@implementacion+1, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_proveedor` VALUES (@implementacion+2, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_proveedor` VALUES (@implementacion+3, 2);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_proveedor` VALUES (@implementacion+4, 2);
 
 COMMIT;
 
@@ -300,7 +328,7 @@ COMMIT;
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
 
--- componentes de la implementacion 200
+
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion, 8);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion, 9);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion, 10);
@@ -328,7 +356,7 @@ INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUE
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion, 32);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion, 33);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion, 34);
--- componentes de la implementacion 201
+
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+1, 8);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+1, 9);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+1, 10);
@@ -355,7 +383,65 @@ INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUE
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+1, 31);
 INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+1, 32);
 
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 8);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 9);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 10);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 11);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 12);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 17);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 35);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 36);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 14);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 27);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 28);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 29);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 30);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 31);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+2, 32);
+
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 8);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 9);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 10);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 11);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 12);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 13);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 14);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 15);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 16);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 17);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 18);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 19);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 20);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 21);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 22);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 23);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 24);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 25);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 26);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 27);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 28);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 29);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 30);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 31);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 32);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 33);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+3, 34);
+
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 8);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 9);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 10);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 11);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 12);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 17);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 35);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 36);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 14);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 27);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 28);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 29);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 30);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 31);
+INSERT INTO `persepolis.proyecto.solucion`.`implementacion_has_componente` VALUES (@implementacion+4, 32);
 
 COMMIT;
-
 
