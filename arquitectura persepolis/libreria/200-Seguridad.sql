@@ -256,13 +256,13 @@ INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+4, @solucion+1, 'Caracteristica', 'Actualización o Cierre del Caso');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+5, @solucion+1, 'Caracteristica', 'Seguimiento del Caso');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+6, @solucion+2, 'Caracteristica', 'Registro del Evento Vecinal');
-INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+7, @solucion+2, 'Caracteristica', 'Actualización del Evento');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+7, @solucion+2, 'Caracteristica', 'Actualización del Evento de la Junta');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+8, @solucion+2, 'Caracteristica', 'Consulta del Evento Vecinal');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+9, @solucion+3, 'Caracteristica', 'Registro de Evento Observado');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+10, @solucion+3, 'Caracteristica', 'Complementa información del Evento');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+11, @solucion+3, 'Caracteristica', 'Persépolis correlaciona Eventos');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+12, @solucion+4, 'Caracteristica', 'Registro del Evento Vigilado');
-INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+13, @solucion+4, 'Caracteristica', 'Actualización del Evento:');
+INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+13, @solucion+4, 'Caracteristica', 'Actualización del Evento de Vigilancia');
 INSERT INTO `persepolis.proyecto.solucion`.`requerimiento_caracteristica` VALUES (@caracteristica+14, @solucion+4, 'Caracteristica', 'Consulta del Evento Vigilado');
 
 COMMIT;
