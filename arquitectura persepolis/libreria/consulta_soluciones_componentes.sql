@@ -13,5 +13,6 @@ from
     left join `persepolis.proyecto.solucion`.implementacion_has_componente c on aa.idimplementacion = c.implementacion_idimplementacion
     left join `persepolis.proyecto.solucion`.componente d on c.componente_idcomponente = d.idcomponente
 where a.solucion = "SOLX201 COM"
+and b.nombre = 'Seguimiento del Caso'
 ;
 
