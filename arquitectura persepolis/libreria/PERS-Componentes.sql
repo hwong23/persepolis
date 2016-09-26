@@ -5,6 +5,7 @@ USE `persepolis.proyecto.solucion`;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `persepolis.proyecto.solucion`;
+
 -- Aplicaciones
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (1, 'C0-01. Función o App Movil', 'Aplicación', 1000000, 1) on duplicate key update costo_aproximado = 5200000, plazo_aproximado = 2;
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (2, 'C0-02. App Web Interacción Estándar', 'Aplicación', 1000000, 1) on duplicate key update costo_aproximado = 7800000, plazo_aproximado = 3;
@@ -32,7 +33,7 @@ INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (22, 'CO-22. <<Sw
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (23, 'CO-23. <<Firewall>> Huawei C3', 'Dispositivo', 1000000, 1) on duplicate key update costo_aproximado = 6000000, plazo_aproximado = 0;
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (24, 'CO-24. <<Servidor de Applicaciones Linux>> Balanceador', 'Dispositivo', 1000000, 1) on duplicate key update componente = 'CO-24. <<Dispositivo>> Balanceador - Servidor de Applicaciones Linux', costo_aproximado = 400000, plazo_aproximado = 0;
 
-
+-- Otros CF (componentes fundamentales)
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (26, 'C0-26. ESB', 'Base', 1000000, 1) on duplicate key update costo_aproximado = 2600000, plazo_aproximado = 1;
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (29, 'CO-29. Dispositivo móvil', 'Dispositivo', 1000000.34, 1) on duplicate key update costo_aproximado = 520000, plazo_aproximado = 0.2;
 INSERT INTO `persepolis.proyecto.solucion`.`componente` VALUES (31, 'CO-31. Canal Internet', 'Comunicación', 1000000, 1) on duplicate key update costo_aproximado = 4000000, plazo_aproximado = 1;
