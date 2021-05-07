@@ -1,7 +1,7 @@
 <archimate:ArchimateDiagramModel
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:archimate="http://www.archimatetool.com/archimate"
-    name="Mismo dominios"
+    name="Dominio unificado"
     id="223a5f05-29a3-4831-aa49-24b2e53bf74e">
   <children
       xsi:type="archimate:DiagramModelArchimateObject"
